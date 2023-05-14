@@ -1,3 +1,5 @@
+import {projectsTable, project} from './projects.js';
+
 //---initiation functions for left panel items
 (() => {
     const panelItem = document.querySelectorAll('.panel-item');
@@ -36,6 +38,7 @@
     })
 })();
 
+
 //---initiation of hamburger menu
 (() => {
     const hamburger = document.querySelector('.navbar-col');
@@ -43,6 +46,27 @@
     hamburger.addEventListener('click', () => {
         changeDom.collapseMenu('collapsed')
     })
+})();
+
+
+//---initiation of add a project button.
+//---it adds a new project to project folder
+(() => {
+    const addProjectSelect = document.querySelector('.panel-item.add-project');
+
+    addProjectSelect.addEventListener('click', () => {
+        projectsTable.push(project('personnel'))
+        projectsTable[0].tasksTable.push('je suis objet')
+        console.log(projectsTable[0].tasksTable[0])
+    })
+})();
+
+
+//---(a changer quand il va y en avoir plusieurs) initiation of toggle check task 
+(() => {
+    const toggleMark = document.querySelector('.task-toggle');
+    toggleMark.addEventListener('mouseenter', () => toggleMark.src = '/src/images/check-hover.png')
+    toggleMark.addEventListener('mouseleave', () => toggleMark.src = '/src/images/uncheck.png')
 })();
 
 //---module patern function that change the dom
@@ -64,3 +88,5 @@ const changeDom = (() => {
         collapseMenu,
     }
 })();
+
+
