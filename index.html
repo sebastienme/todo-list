@@ -9,7 +9,7 @@
 <body>
     <header>
         <nav>
-            <img class="navbar-col" src="/src/images/hamb.png" alt="">
+            <img class="navbar-col" src="/src/images/hamb.png">
             <img class="navbar-logo" src="/src/images/check.png">
             <div class="navbar-title">Ma<span class="navbar-title__span">ToDo</span></div>
         </nav>
@@ -19,20 +19,45 @@
             <div class="nav-panel">
                 <div class="nav-panel__top">
                     <div class="panel-title">Mes tâches</div>
-                    <ul>
-                        <li>Aujourdhui</li>
-                        <li>7 prochain jour</li>
-                        <li>Tous</li>
+                    <ul class="nav-panel__ul">
+                        <li class="panel-item sun"><img class="panel-item__icon" src="/src/images/sun-5.png"><div class="panel-item__text">Aujourd'hui</div></li>
+                        <li class="panel-item moon"><img class="panel-item__icon" src="/src/images/moon-3.png"><div class="panel-item__text">7 jours</div></li>
+                        <li class="panel-item folder"><img class="panel-item__icon" src="/src/images/folder-2.png"><div class="panel-item__text">Tous</div></li>
                     </ul>
                 </div>
                 <div class="nav-panel__bottom">
                     <div class="panel-title">Mes projets</div>
-                    <ul>
-                        <li>Ajouter un projet</li>
+                    <ul class="nav-panel__ul">
+                        <li class="panel-item">Ajouter un projet</li>
                     </ul>
                 </div>
             </div>
-            <div class="main-content">blou</div>
+            <div class="main-content">
+                <div class="main-content__top">
+                    <div class="main-content__top__title">Aujourd'hui</div>
+                </div>
+                <div class="main-content__bottom">
+                    <ul class="task-list">
+                        <li class="task-item">
+                            <div class="task-item__toggle">
+                                <img class="task-toggle icon" src="/src/images/uncheck.png">
+                            </div>
+                            <div class="task-item__main">
+                                <div class="task-title">Faire le menage</div>
+                                <div class="task-description">ne pas oublie de faire la sale de bain</div>
+                                <div class="task-date">
+                                    <img class="task-date-icon icon" src="/src/images/calendar-2.png">
+                                    <div class="task-date">6 avril 2023</div>    
+                                </div>
+                            </div>
+                            <div class="task-item__settings">
+                                <img class="task-settings icon" src="/src/images/dots.png">
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="details-section">hello</div>
+                </div>
+            </div>
         </div>
     </main>
     <footer></footer>
