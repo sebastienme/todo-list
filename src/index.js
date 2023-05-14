@@ -1,4 +1,4 @@
 import './style.css';
-import Icon from './images/check.png';
+import './dom.js';
 
 console.log("hellllo")

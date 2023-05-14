@@ -96,6 +96,12 @@ nav {
     left: 20px;
 }
 
+.navbar-col:hover {
+    cursor: pointer;
+    background-color:#e9e9e9;
+    border-radius: 25px;
+}
+
 .navbar-logo {
     width: 40px;
 }
@@ -116,9 +122,126 @@ nav {
 .nav-panel {
     display: flex;
     flex-direction: column;
+    gap: 60px;
     
     background-color: var(--text-color);
     color: var(--main-color);
 
     min-height: calc(100vh - 100px);
+    width: 450px;
+    transition-duration: 300ms;
+}
+
+.nav-panel.collapsed {
+    translate: -380px;
+    width: 0;
+}
+
+.nav-panel__top {
+    margin-top: 30px;
+}
+
+.panel-title {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: var(--h4-text);
+    padding-left: 20px;
+}
+
+.nav-panel__ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 0 20px 0 20px;
+
+}
+
+.panel-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 4px;
+    padding: 7px 0 7px 10px;
+    border-left: 4px solid transparent;
+}
+
+.panel-item:hover {
+    background-color: #353535;
+    cursor: pointer;
+}
+
+.panel-item__icon {
+    width: 30px;
+    height: 30px;
+}
+
+.panel-item__text {
+    font-size: var(--h5-text);
+}
+
+.main-content {
+    flex: 1 1 100%;
+}
+
+.main-content__top {
+    margin: 30px 40px 30px 40px;
+}
+
+.main-content__top__title {
+    font-weight: 500;
+    font-size: var(--h1-text);
+    
+    background-color: #FFC52F;
+    color: var(--main-color);
+
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.main-content__bottom {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.task-item {
+    display: flex;
+    gap: 20px;
+    border: 2px solid var(--text-color);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0 40px 30px 40px;
+    max-width: 600px;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+}
+
+.task-title {
+    font-weight: 500;
+
+}
+
+.task-description {
+    color: #727272;
+    margin-bottom: 5px;
+}
+
+.task-date {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color:#727272;
+}
+
+.task-item__settings {
+    margin-left: auto;
 }
