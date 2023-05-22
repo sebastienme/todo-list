@@ -7,6 +7,17 @@
     <title>To-Do!</title>
 </head>
 <body>
+    <div class="background-modal-form-section fade"></div>
+    <div class="modal">
+        <div class="modal__box">
+            <form method="get" id="project-form">
+                <label for="name">Nom du project:</label>
+                <input type="text" name="name" id="name" class="input-name">
+                <input type="submit" value="sousmettre" id="sousmettre">
+                <span class="tooltiptext">oops</span>
+            </form>
+        </div>
+    </div>
     <header>
         <nav>
             <img class="navbar-col" src="/src/images/hamb.png">
@@ -27,7 +38,7 @@
                 </div>
                 <div class="nav-panel__bottom">
                     <div class="panel-title">Mes projets</div>
-                    <ul class="nav-panel__ul">
+                    <ul class="nav-panel__ul project">
                         <li class="panel-item add-project"><img class="panel-item__icon" src="/src/images/plus-2.png"><div class="panel-item__text">Ajouter un projet</div></li>
                     </ul>
                 </div>
@@ -40,7 +51,7 @@
                     <ul class="task-list">
                         <li class="task-item">
                             <div class="task-item__toggle">
-                                <a><img class="task-toggle icon" src="/src/images/uncheck.png"></a>
+                                <span class="task-toggle not-selected"></span>
                             </div>
                             <div class="task-item__main">
                                 <div class="task-title">Faire le menage</div>

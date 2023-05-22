@@ -115,6 +115,55 @@ nav {
     color: var(--secondary-color);
 }
 
+.background-modal-form-section.fade {
+    position: absolute;
+    background-color: rgba(0, 0, 0);
+    width: 100vw;
+    height: 100vh;
+    animation-name: fade;
+    animation-duration: 300ms;
+    animation-fill-mode:forwards; 
+}
+
+.modal {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+.modal__box {
+    padding: 30px;
+    border-radius: 10px;
+    background-color: var(--main-color);
+}
+
+#project-form {
+    display: flex;
+    flex-direction: column;
+    color: var(--text-color);
+}
+
+#project-form > label {
+    font-size: var(--h1-text);
+}
+
+.input-name {
+    
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.329;
+    }
+}
+
 .nav-and-content {
     display: flex;
 }
@@ -223,6 +272,24 @@ nav {
 .icon {
     width: 30px;
     height: 30px;
+}
+
+.task-toggle {
+    display: flex;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 3px solid var(--text-color);
+    border-radius: 50px;
+}
+
+.task-toggle:hover {
+    background-color: #D9D9D9;
+}
+
+.check-selected {
+    width: 16px;
+    object-fit: contain;
 }
 
 .task-title {
