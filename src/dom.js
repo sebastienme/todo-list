@@ -1,4 +1,4 @@
-import {projectsTable, project} from './projects.js';
+import {projectsTable, project, validateProject} from './projects.js';
 
 //---initiation functions for left panel items
 (() => {
@@ -39,7 +39,7 @@ import {projectsTable, project} from './projects.js';
     const hamburger = document.querySelector('.navbar-col');
 
     hamburger.addEventListener('click', () => {
-        changeDom.collapseMenu('collapsed')
+        changeDom.toggleClassList('.nav-panel','collapsed')
     })
 })();
 
@@ -50,8 +50,9 @@ import {projectsTable, project} from './projects.js';
     const addProjectSelect = document.querySelector('.panel-item.add-project');
 
     addProjectSelect.addEventListener('click', () => {
-        const project1 = project('personnel');
-        project1.addProject(project1);
+        changeDom.toggleClassList('.background-modal-form-section', 'fade');
+        changeDom.toggleClassList('.modal', 'open');
+        changeDom.createForm('project-form');
     })
 })();
 
@@ -78,7 +79,7 @@ import {projectsTable, project} from './projects.js';
 })();
 
 //---module patern function that change the dom
-const changeDom = (() => {
+export const changeDom = (() => {
     
     const taskTitle = (color, text) => {
         const topTitle = document.querySelector('.main-content__top__title');
@@ -86,14 +87,76 @@ const changeDom = (() => {
         topTitle.innerHTML = text;
     };
 
-    const collapseMenu = (classe) => {
-        const leftMenu = document.querySelector('.nav-panel');
-        leftMenu.classList.toggle(classe)
+    const toggleClassList = (selector, classe) => {
+        const theSelector = document.querySelector(selector);
+        theSelector.classList.toggle(classe);
+    }
+
+    const createForm = (id) => {
+        const modal = document.querySelector('.modal__box');
+        const img = document.createElement('img');
+        const newForm = document.createElement('form');
+        const input = document.createElement('input');
+        const label = document.createElement('label');
+        const newInput = document.createElement('input');
+        
+        img.setAttribute("class", "close-btn");
+        img.setAttribute("src", "/src/images/close.png")
+        img.addEventListener('click', () => hideModal());
+        
+        newForm.setAttribute("method", "get");
+        newForm.setAttribute("id", id);
+    
+        label.setAttribute("for", "name");
+        label.innerHTML = "Nom du projet:"
+
+        input.setAttribute("type", "text");
+        input.setAttribute("name", "name");
+        input.setAttribute("id", "name");
+        input.setAttribute("class", "input-name");
+
+        newInput.setAttribute("type", "submit");
+        newInput.setAttribute("value", "sousmettre");
+        newInput.setAttribute("id", "sousmettre");
+
+        modal.appendChild(img)
+        modal.appendChild(newForm);
+        newForm.appendChild(label);
+        newForm.appendChild(input);
+        newForm.appendChild(newInput);
+
+        validateProject();
+    }
+
+    const hideModal = () => {
+        toggleClassList('.background-modal-form-section', 'fade');
+        toggleClassList('.modal', 'open');
+        document.querySelector('.modal__box').innerHTML = '';
+    }
+
+    const addProjectSection = (projet) => {
+        const projectSection = document.querySelector('.nav-panel__ul.project');
+        const item = document.createElement('li');
+        const img = document.createElement('img');
+        const div = document.createElement('div');
+
+        item.setAttribute('class', 'panel-item');
+        img.setAttribute('class', 'panel-item__icon');
+        img.setAttribute('src', '/src/images/folder-2.png');
+        div.setAttribute('class', 'panel-item__text');
+        div.innerHTML = projet.getName();
+
+        item.appendChild(img);
+        item.appendChild(div);
+        projectSection.insertBefore(item, document.querySelector('.panel-item.add-project'));
     }
 
     return {
         taskTitle,
-        collapseMenu,
+        toggleClassList,
+        createForm,
+        hideModal,
+        addProjectSection
     }
 })();
 

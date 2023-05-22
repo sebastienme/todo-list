@@ -115,8 +115,11 @@ nav {
     color: var(--secondary-color);
 }
 
-.background-modal-form-section.fade {
+.background-modal-form-section {
     position: absolute;
+}
+
+.background-modal-form-section.fade {
     background-color: rgba(0, 0, 0);
     width: 100vw;
     height: 100vh;
@@ -133,26 +136,70 @@ nav {
 
     width: 100vw;
     height: 100vh;
+
+    transform: scale(0);
+    transition: 300ms;
+}
+
+.modal.open {
+    transform: scale(1);
 }
 
 .modal__box {
-    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    border: 3px solid var(--text-color);
+    padding: 30px 30px 15px 30px;
     border-radius: 10px;
     background-color: var(--main-color);
+}
+
+.close-btn {
+    width: 30px;
+    align-self: flex-end;
+    z-index: 10;
 }
 
 #project-form {
     display: flex;
     flex-direction: column;
+    gap: 15px;
     color: var(--text-color);
+    margin-top: -20px;
 }
 
 #project-form > label {
     font-size: var(--h1-text);
+    font-weight: 500;
 }
 
 .input-name {
-    
+    border-radius: 10px;
+    height: 75px;
+    width: 75%;
+    font-size: var(--h2-text);
+    font-weight: 400;
+    padding-left: 20px;
+    border: 3px solid var(--text-color);
+    color: var(--fourth-color);
+    align-self: center;
+}
+
+.input-name:focus {
+    border: 3px solid var(--secondary-color);
+    outline: none;
+}
+
+input[type=submit] {
+    background-color: var(--secondary-color);
+    padding: 10px;
+    border-radius: 10px;
+    border: 3px solid var(--text-color);
+    color: var(--main-color);
+    font-size: var(--h5-text);
+    font-weight: 600;
+    outline: none;
+    align-self: center;
 }
 
 @keyframes fade {
