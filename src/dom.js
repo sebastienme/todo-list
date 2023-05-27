@@ -144,11 +144,15 @@ export const changeDom = (() => {
         img.setAttribute('class', 'panel-item__icon');
         img.setAttribute('src', '/src/images/folder-2.png');
         div.setAttribute('class', 'panel-item__text');
-        div.innerHTML = projet.getName();
+        div.innerHTML = projet.nom;
 
         item.appendChild(img);
         item.appendChild(div);
         projectSection.insertBefore(item, document.querySelector('.panel-item.add-project'));
+    }
+
+    const initialiseProjects = () => {
+        projectsTable.forEach(item => addProjectSection(item));
     }
 
     return {
@@ -156,7 +160,8 @@ export const changeDom = (() => {
         toggleClassList,
         createForm,
         hideModal,
-        addProjectSection
+        addProjectSection,
+        initialiseProjects
     }
 })();
 
