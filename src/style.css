@@ -224,7 +224,7 @@ input[type=submit] {
     color: var(--main-color);
 
     min-height: calc(100vh - 100px);
-    width: 450px;
+    width: 425px;
     transition-duration: 300ms;
 }
 
@@ -274,6 +274,10 @@ input[type=submit] {
 
 .panel-item__text {
     font-size: var(--h5-text);
+}
+
+.panel-item__icon.dots {
+    margin-left: auto;
 }
 
 .main-content {

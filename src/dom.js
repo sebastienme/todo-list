@@ -139,21 +139,28 @@ export const changeDom = (() => {
         const item = document.createElement('li');
         const img = document.createElement('img');
         const div = document.createElement('div');
+        const dots = document.createElement('img');
 
-        item.setAttribute('class', 'panel-item');
+        item.setAttribute('class', 'panel-item project');
         img.setAttribute('class', 'panel-item__icon');
-        img.setAttribute('src', '/src/images/folder-2.png');
+        img.setAttribute('src', '/src/images/folder-close.png');
         div.setAttribute('class', 'panel-item__text');
         div.innerHTML = projet.nom;
+        dots.setAttribute('class', 'panel-item__icon dots');
+        dots.setAttribute('src', '/src/images/white-dots.png')
+
+        //---->Ajouter un addEventListener pour ouvrir le folder quand on clique dessus<-----
 
         item.appendChild(img);
         item.appendChild(div);
+        item.appendChild(dots);
         projectSection.insertBefore(item, document.querySelector('.panel-item.add-project'));
     }
 
     const initialiseProjects = () => {
         projectsTable.forEach(item => addProjectSection(item));
     }
+
 
     return {
         taskTitle,
