@@ -142,14 +142,25 @@ export const changeDom = (() => {
         const dots = document.createElement('img');
 
         function projectClicked(event) {
+            const projectListItems = document.querySelectorAll('.panel-item.project');
             const clickedListItem = event.target.closest('.panel-item.project');
-            // Find the image within the clicked list item
-            const imageToChange = clickedListItem.querySelector('.panel-item__icon.main');
-            
-            getProjectClicked(clickedListItem.id);
+            let imageToChange = '';
 
-            // Modify the source (src) attribute of the image
-            imageToChange.src = '/src/images/folder-2.png';
+            //if user click on the dots of a project
+            if (event.target.classList.contains('dots')) {
+                console.log(event.target)
+            } else {
+                projectListItems.forEach(element => {
+                    if (clickedListItem.id == element.id) {
+                        imageToChange = clickedListItem.querySelector('.panel-item__icon.main');
+                        imageToChange.src = '/src/images/folder-2.png';
+                    } else {
+                        imageToChange = element.querySelector('.panel-item__icon.main');
+                        imageToChange.src = '/src/images/folder-close.png';
+                    }
+                })
+                getProjectClicked(clickedListItem.id);
+            }
         }
 
         item.setAttribute('class', 'panel-item project');
@@ -168,6 +179,14 @@ export const changeDom = (() => {
         item.appendChild(div);
         item.appendChild(dots);
         projectSection.insertBefore(item, document.querySelector('.panel-item.add-project'));
+
+        const projectDots = document.querySelectorAll('.panel-item__icon.dots');
+        projectDots.forEach(element => {
+            element.addEventListener('click', (e) => {
+                
+            })
+        })
+
     }
 
     const initialiseProjects = () => {
@@ -184,5 +203,6 @@ export const changeDom = (() => {
         initialiseProjects
     }
 })();
+
 
 
