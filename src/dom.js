@@ -1,4 +1,4 @@
-import {projectsTable, project, validateProject, getProjectClicked} from './projects.js';
+import {projectsTable, project, validateProject, getProjectClicked, deleteProject} from './projects.js';
 
 //---initiation functions for left panel items
 (() => {
@@ -139,6 +139,7 @@ export const changeDom = (() => {
         const item = document.createElement('li');
         const img = document.createElement('img');
         const div = document.createElement('div');
+        const wrapperDiv = document.createElement('div');
         const dots = document.createElement('img');
 
         function projectClicked(event) {
@@ -146,9 +147,12 @@ export const changeDom = (() => {
             const clickedListItem = event.target.closest('.panel-item.project');
             let imageToChange = '';
 
-            //if user click on the dots of a project
-            if (event.target.classList.contains('dots')) {
-                console.log(event.target)
+            //if user click on the three dots of a project in project list
+            if (event.target.classList.contains('dots-menu') || 
+                event.target.classList.contains('dots-menu__item__text') || event.target.classList.contains('dots-menu__item__img')) {
+                deleteProject(clickedListItem);
+            } else if (event.target.classList.contains('dots')) {
+                openProjectMenu(event.target.closest('.panel-item__wrapper'));
             } else {
                 projectListItems.forEach(element => {
                     if (clickedListItem.id == element.id) {
@@ -171,26 +175,41 @@ export const changeDom = (() => {
         div.setAttribute('class', 'panel-item__text');
         div.innerHTML = projet.nom;
         dots.setAttribute('class', 'panel-item__icon dots');
-        dots.setAttribute('src', '/src/images/white-dots.png')
+        dots.setAttribute('src', '/src/images/white-dots.png');
+        wrapperDiv.setAttribute('class', 'panel-item__wrapper')
 
         //---->Ajouter un addEventListener pour ouvrir le folder quand on clique dessus<-----
-
+        wrapperDiv.appendChild(dots)
         item.appendChild(img);
         item.appendChild(div);
-        item.appendChild(dots);
+        item.appendChild(wrapperDiv);
         projectSection.insertBefore(item, document.querySelector('.panel-item.add-project'));
-
-        const projectDots = document.querySelectorAll('.panel-item__icon.dots');
-        projectDots.forEach(element => {
-            element.addEventListener('click', (e) => {
-                
-            })
-        })
-
     }
 
     const initialiseProjects = () => {
         projectsTable.forEach(item => addProjectSection(item));
+    }
+
+    const openProjectMenu = (wrapper) => {
+        const ul = document.createElement('ul');
+        ul.setAttribute('class', 'dots-menu');
+        ul.innerHTML = `
+        <li class="dots-menu__item">
+            <div class="dots-menu__item__text">Supprimer Projet</div>
+            <img class="dots-menu__item__img" src="/src/images/delete.png">
+        </li>
+        `
+        wrapper.appendChild(ul);
+
+        // function that remove the projectMenu popup
+        document.addEventListener('click', function(event) {
+            // Check if the clicked element is the div or a descendant of the div
+            const isClickedInsideDiv = wrapper.contains(event.target);
+            // If the clicked element is outside the div, remove the div
+            if (!isClickedInsideDiv) {
+            ul.remove();
+            }
+        });
     }
 
 

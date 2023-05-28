@@ -1,4 +1,5 @@
 import {changeDom} from './dom.js';
+import _ from 'lodash';
 
 //---initialise array of Projects
 let emptyProjectsTable = [];
@@ -46,4 +47,10 @@ export const getProjectClicked = (id) => {
     const project = projectsTable.find(element => element.nom.toLowerCase() == id);
 
     console.log(project);
+}
+
+export const deleteProject = (element) => {
+    projectsTable = _.reject(projectsTable, function(el) { return el.nom.toLowerCase() === element.id });
+    element.remove();
+    saveToLocale();
 }
