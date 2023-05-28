@@ -1,4 +1,4 @@
-import {projectsTable, project, validateProject} from './projects.js';
+import {projectsTable, project, validateProject, getProjectClicked} from './projects.js';
 
 //---initiation functions for left panel items
 (() => {
@@ -141,8 +141,21 @@ export const changeDom = (() => {
         const div = document.createElement('div');
         const dots = document.createElement('img');
 
+        function projectClicked(event) {
+            const clickedListItem = event.target.closest('.panel-item.project');
+            // Find the image within the clicked list item
+            const imageToChange = clickedListItem.querySelector('.panel-item__icon.main');
+            
+            getProjectClicked(clickedListItem.id);
+
+            // Modify the source (src) attribute of the image
+            imageToChange.src = '/src/images/folder-2.png';
+        }
+
         item.setAttribute('class', 'panel-item project');
-        img.setAttribute('class', 'panel-item__icon');
+        item.setAttribute('id', projet.nom.toLowerCase());
+        item.addEventListener('click', projectClicked);
+        img.setAttribute('class', 'panel-item__icon main');
         img.setAttribute('src', '/src/images/folder-close.png');
         div.setAttribute('class', 'panel-item__text');
         div.innerHTML = projet.nom;

@@ -5,18 +5,20 @@ let emptyProjectsTable = [];
 export let projectsTable = localStorage.getItem('data');
 projectsTable = JSON.parse(projectsTable || JSON.stringify(emptyProjectsTable));
 
+//---Project object
 export const project = (nom) => {
     const tasksTable = [];
     return {tasksTable, nom};
 }
 
+//---Validate the project form
 export const validateProject = () => {
     document.getElementById('project-form').addEventListener('submit', (e) => {
         const inputResponse = document.querySelector('.input-name').value;
         
         e.preventDefault();
 
-        if (inputResponse != '') {
+        if (inputResponse != '' && projectsTable.find(element => element.nom === inputResponse) == null) {
             const oneProject = project(inputResponse);
             addProject(oneProject);
             changeDom.hideModal();
@@ -27,12 +29,21 @@ export const validateProject = () => {
         }
     })
 }
+
+
 const addProject = (item) => {
     projectsTable.push(item)
 }
 
-//---probablement faire un module patern dans dom.js pour initialiser la page avec le local storage si pas vide.
-
+//---Save the array of projects to localStorage
 const saveToLocale = () => {
     localStorage.setItem('data', JSON.stringify(projectsTable));
+}
+
+
+//---Get the project clicked by the user
+export const getProjectClicked = (id) => {
+    const project = projectsTable.find(element => element.nom.toLowerCase() == id);
+
+    console.log(project);
 }
