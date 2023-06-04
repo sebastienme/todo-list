@@ -1,4 +1,5 @@
 import {projectsTable, project, validateProject, getProjectClicked, deleteProject} from './projects.js';
+import { formatDistance, subDays } from 'date-fns'
 
 //---initiation functions for left panel items
 (() => {
@@ -42,17 +43,15 @@ import {projectsTable, project, validateProject, getProjectClicked, deleteProjec
             changeDom.toggleClassList('.background-modal-form-section', 'fade');
             changeDom.toggleClassList('.modal', 'open');
             changeDom.createProjectForm('project-form');
+        } else {
+            changeDom.toggleClassList('.background-modal-form-section', 'fade');
+            changeDom.toggleClassList('.modal', 'open');
+            changeDom.createTaskForm(addTaskButton.id)
         }
         
     })
 })();
 
-//initiation of the project to display
-(() => {
-    if (projectsTable.length > 0) {
-        changeDom.showTasksList(projectsTable[0].nom.toLowerCase());
-    }
-})();
 
 //---initiation of hamburger menu
 (() => {
@@ -208,6 +207,7 @@ export const changeDom = (() => {
 
     const initialiseProjects = () => {
         projectsTable.forEach(item => addProjectSection(item));
+        showTasksList(projectsTable[0].nom.toLowerCase());
     }
 
     const openProjectMenu = (wrapper) => {
@@ -249,9 +249,71 @@ export const changeDom = (() => {
             }
         })
 
-        //second show the task list
+        //second show the task list (to complete)
     }
 
+    const createTaskForm = (id) => {
+        const modal = document.querySelector('.modal__box');
+        const img = document.createElement('img');
+        const newForm = document.createElement('form');
+        const input = document.createElement('input');
+        const label = document.createElement('label');
+        const input2 = document.createElement('textarea');
+        const label2 = document.createElement('label');
+        const input3 = document.createElement('input');
+        const label3 = document.createElement('label');
+        const newInput = document.createElement('input');
+        
+        img.setAttribute("class", "close-btn");
+        img.setAttribute("src", "/src/images/close.png")
+        img.addEventListener('click', () => hideModal());
+        
+        newForm.setAttribute("method", "get");
+        newForm.setAttribute("id", "task-form");
+    
+        label.setAttribute("for", "name");
+        label.innerHTML = "Nom de la tâche";
+        label2.setAttribute("for", "description");
+        label2.innerHTML = "Notes";
+        label3.setAttribute("for", "date");
+        label3.innerHTML = "Date d'échéance";
+
+        input.setAttribute("type", "text");
+        input.setAttribute("name", "name");
+        input.setAttribute("id", "name");
+        input.setAttribute("class", "input-name");
+
+        input2.setAttribute("type", "text");
+        input2.setAttribute("name", "description");
+        input2.setAttribute("id", "description");
+        input2.setAttribute("class", "input-description");
+
+        input3.setAttribute("type", "text");
+        input3.setAttribute("name", "date");
+        input3.setAttribute("id", "datepicker");
+        input3.setAttribute("class", "input-date");
+
+        newInput.setAttribute("type", "submit");
+        newInput.setAttribute("value", "sousmettre");
+        newInput.setAttribute("id", "sousmettre");
+
+        modal.appendChild(img)
+        modal.appendChild(newForm);
+        newForm.appendChild(label);
+        newForm.appendChild(input);
+        label2.appendChild(input2);
+        newForm.appendChild(label2);
+        newForm.appendChild(label3);
+        newForm.appendChild(input3);
+        newForm.appendChild(newInput);
+        fireDatePicker();
+        function fireDatePicker() {
+            $( function() {
+                $( "#datepicker" ).datepicker();
+              } );
+        }
+        //validateTask();
+    }
 
     const initialiseTaskAddButton = () => {
         
@@ -285,6 +347,7 @@ export const changeDom = (() => {
         initialiseProjects,
         setTaskId,
         showTasksList,
+        createTaskForm,
         initialiseTaskAddButton
     }
 })();

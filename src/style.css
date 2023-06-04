@@ -162,7 +162,7 @@ nav {
     cursor: pointer;
 }
 
-#project-form {
+#project-form, #task-form {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -172,6 +172,11 @@ nav {
 
 #project-form > label {
     font-size: var(--h1-text);
+    font-weight: 500;
+}
+
+#task-form > label {
+    font-size: var(--h3-text);
     font-weight: 500;
 }
 
@@ -187,9 +192,39 @@ nav {
     align-self: center;
 }
 
-.input-name:focus {
+#task-form .input-name  {
+    width: 100%;
+    height: 55px;
+    font-size: var(--h4-text);
+    margin: 0 45px 0 45px;
+}
+
+#task-form .input-description  {
+    width: 100%;
+    min-height: 150px;
+    font-size: var(--h5-text);
+    padding: 8px 22px 8px 22px;
+}
+
+.input-name:focus, .input-description:focus {
     border: 3px solid var(--secondary-color);
     outline: none;
+}
+
+textarea {
+    resize: none;
+  }
+
+.input-description {
+    border-radius: 10px;
+    height: 75px;
+    width: 75%;
+    font-size: var(--h2-text);
+    font-weight: 400;
+    padding-left: 20px;
+    border: 3px solid var(--text-color);
+    color: var(--fourth-color);
+    align-self: center;
 }
 
 input[type=submit] {
