@@ -159,6 +159,7 @@ nav {
     width: 30px;
     align-self: flex-end;
     z-index: 10;
+    cursor: pointer;
 }
 
 #project-form {
@@ -201,6 +202,7 @@ input[type=submit] {
     font-weight: 600;
     outline: none;
     align-self: center;
+    cursor: pointer;
 }
 
 @keyframes fade {
@@ -350,6 +352,30 @@ input[type=submit] {
     padding: 10px;
     margin: 0 40px 30px 40px;
     max-width: 600px;
+}
+
+.task-item.add-task {
+    justify-content: center;
+    border: none;
+    background-color: #d4d4d4;
+}
+
+.task-item.add-task:hover {
+    background-color: #b3b3b3;
+    cursor: pointer;
+}
+
+.plus-svg {
+    transition: transform 0.1s ease-in;
+}
+
+.task-item.add-task:hover .plus-svg {
+    transform: scale(1.1);
+}
+
+.task-item__plus {
+    display: flex;
+    align-items: center;
 }
 
 .icon {

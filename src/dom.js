@@ -33,6 +33,26 @@ import {projectsTable, project, validateProject, getProjectClicked, deleteProjec
     })
 })();
 
+//---initiation of the add a task button
+(() => {
+    const addTaskButton = document.querySelector('.task-item.add-task');
+
+    addTaskButton.addEventListener('click', () => {
+        if (projectsTable.length == 0) {
+            changeDom.toggleClassList('.background-modal-form-section', 'fade');
+            changeDom.toggleClassList('.modal', 'open');
+            changeDom.createProjectForm('project-form');
+        }
+        
+    })
+})();
+
+//initiation of the project to display
+(() => {
+    if (projectsTable.length > 0) {
+        changeDom.showTasksList(projectsTable[0].nom.toLowerCase());
+    }
+})();
 
 //---initiation of hamburger menu
 (() => {
@@ -52,13 +72,13 @@ import {projectsTable, project, validateProject, getProjectClicked, deleteProjec
     addProjectSelect.addEventListener('click', () => {
         changeDom.toggleClassList('.background-modal-form-section', 'fade');
         changeDom.toggleClassList('.modal', 'open');
-        changeDom.createForm('project-form');
+        changeDom.createProjectForm('project-form');
     })
 })();
 
 
 //---(a changer quand il va y en avoir plusieurs) initiation of toggle check task 
-(() => {
+/* (() => {
     const toggleMark = document.querySelector('.task-toggle');
     const image = document.createElement('img');
 
@@ -76,7 +96,7 @@ import {projectsTable, project, validateProject, getProjectClicked, deleteProjec
         }
         toggleMark.classList.toggle("not-selected");
     })
-})();
+})(); */
 
 //---module patern function that change the dom
 export const changeDom = (() => {
@@ -92,7 +112,7 @@ export const changeDom = (() => {
         theSelector.classList.toggle(classe);
     }
 
-    const createForm = (id) => {
+    const createProjectForm = (id) => {
         const modal = document.querySelector('.modal__box');
         const img = document.createElement('img');
         const newForm = document.createElement('form');
@@ -158,6 +178,7 @@ export const changeDom = (() => {
                     if (clickedListItem.id == element.id) {
                         imageToChange = clickedListItem.querySelector('.panel-item__icon.main');
                         imageToChange.src = '/src/images/folder-2.png';
+                        setTaskId(element.id);
                     } else {
                         imageToChange = element.querySelector('.panel-item__icon.main');
                         imageToChange.src = '/src/images/folder-close.png';
@@ -171,14 +192,13 @@ export const changeDom = (() => {
         item.setAttribute('id', projet.nom.toLowerCase());
         item.addEventListener('click', projectClicked);
         img.setAttribute('class', 'panel-item__icon main');
-        img.setAttribute('src', '/src/images/folder-close.png');
+        img.setAttribute('src', '/src/images/folder-2.png');
         div.setAttribute('class', 'panel-item__text');
         div.innerHTML = projet.nom;
         dots.setAttribute('class', 'panel-item__icon dots');
         dots.setAttribute('src', '/src/images/white-dots.png');
         wrapperDiv.setAttribute('class', 'panel-item__wrapper')
 
-        //---->Ajouter un addEventListener pour ouvrir le folder quand on clique dessus<-----
         wrapperDiv.appendChild(dots)
         item.appendChild(img);
         item.appendChild(div);
@@ -212,14 +232,60 @@ export const changeDom = (() => {
         });
     }
 
+    const setTaskId = (id) => {
+        document.querySelector('.task-item.add-task').setAttribute('id', id);
+    }
+
+    const showTasksList = (id) => {
+        //first clear the open folder project
+        const projectListItems = document.querySelectorAll('.panel-item.project');
+        let imageToChange = '';
+        projectListItems.forEach(element => {
+            if (id == element.id) {
+                setTaskId(element.id);
+            } else {
+                imageToChange = element.querySelector('.panel-item__icon.main');
+                imageToChange.src = '/src/images/folder-close.png';
+            }
+        })
+
+        //second show the task list
+    }
+
+
+    const initialiseTaskAddButton = () => {
+        
+        console.log(projectsTable.length)
+
+       const taskkk = `                        <li class="task-item">
+        <div class="task-item__toggle">
+            <span class="task-toggle not-selected"></span>
+        </div>
+        <div class="task-item__main">
+            <div class="task-title">Faire le menage</div>
+            <div class="task-description">ne pas oublie de faire la sale de bain</div>
+            <div class="task-date">
+                <img class="task-date-icon icon" src="/src/images/calendar-2.png">
+                <div class="task-date">6 avril 2023</div>    
+            </div>
+        </div>
+        <div class="task-item__settings">
+            <img class="task-settings icon" src="/src/images/dots.png">
+        </div>
+    </li>`;
+    }
+
 
     return {
         taskTitle,
         toggleClassList,
-        createForm,
+        createProjectForm,
         hideModal,
         addProjectSection,
-        initialiseProjects
+        initialiseProjects,
+        setTaskId,
+        showTasksList,
+        initialiseTaskAddButton
     }
 })();
 

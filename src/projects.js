@@ -24,6 +24,8 @@ export const validateProject = () => {
             addProject(oneProject);
             changeDom.hideModal();
             changeDom.addProjectSection(oneProject);
+            changeDom.setTaskId(inputResponse.toLowerCase());
+            changeDom.showTasksList(inputResponse.toLowerCase());
             saveToLocale();
         } else {
             document.querySelector('.input-name').style.borderColor = '#b90000';
@@ -49,6 +51,7 @@ export const getProjectClicked = (id) => {
     console.log(project);
 }
 
+//---Deletes a project when user click on delete button
 export const deleteProject = (element) => {
     projectsTable = _.reject(projectsTable, function(el) { return el.nom.toLowerCase() === element.id });
     element.remove();
