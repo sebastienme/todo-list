@@ -3,7 +3,6 @@ import {projectsTable} from './projects.js';
 import {localMethods} from './local'
 
 const Task = (title, description, dueDate) => {
-    
     return {title, description, dueDate}
 }
 

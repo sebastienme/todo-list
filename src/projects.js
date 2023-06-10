@@ -41,9 +41,7 @@ const addProject = (item) => {
 
 //---Get the project clicked by the user
 export const getProjectClicked = (id) => {
-    const project = projectsTable.find(element => element.nom.toLowerCase() == id);
-
-    console.log(project);
+    return projectsTable.find(element => element.nom.toLowerCase() == id);
 }
 
 //---Deletes a project when user click on delete button

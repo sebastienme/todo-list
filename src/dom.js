@@ -36,7 +36,7 @@ import { format } from 'date-fns'
     })
 })();
 
-//---initiation of the add a task button
+//---initiation of the add a task button + task list
 (() => {
     const addTaskButton = document.querySelector('.task-item.add-task');
 
@@ -180,12 +180,12 @@ export const changeDom = (() => {
                         imageToChange = clickedListItem.querySelector('.panel-item__icon.main');
                         imageToChange.src = '/src/images/folder-2.png';
                         setTaskId(element.id);
+                        displayTask(clickedListItem.id);
                     } else {
                         imageToChange = element.querySelector('.panel-item__icon.main');
                         imageToChange.src = '/src/images/folder-close.png';
                     }
                 })
-                getProjectClicked(clickedListItem.id);
             }
         }
 
@@ -245,13 +245,12 @@ export const changeDom = (() => {
         projectListItems.forEach(element => {
             if (id == element.id) {
                 setTaskId(element.id);
+                displayTask(element.id)
             } else {
                 imageToChange = element.querySelector('.panel-item__icon.main');
                 imageToChange.src = '/src/images/folder-close.png';
             }
         })
-
-        //second show the task list (to complete)
     }
 
     const createTaskForm = (id) => {
@@ -313,26 +312,39 @@ export const changeDom = (() => {
         taskMethods.validateTask(id);
     }
 
-    const initialiseTaskAddButton = () => {
-        
-        console.log(projectsTable.length)
+    const displayTask = (id) => {
+        const project = getProjectClicked(id);
+        const tasks = project.tasksTable;
+        const taskList = document.querySelector('.task-item-list');
 
-       const taskkk = `                        <li class="task-item">
-        <div class="task-item__toggle">
-            <span class="task-toggle not-selected"></span>
-        </div>
-        <div class="task-item__main">
-            <div class="task-title">Faire le menage</div>
-            <div class="task-description">ne pas oublie de faire la sale de bain</div>
-            <div class="task-date">
-                <img class="task-date-icon icon" src="/src/images/calendar-2.png">
-                <div class="task-date">6 avril 2023</div>    
+        clearTasks();
+
+        for (let i = 0; i < tasks.length; i++) {
+            const li = document.createElement('li');
+            li.setAttribute('class', 'task-item');
+            li.innerHTML = `
+            <div class="task-item__toggle">
+                <span class="task-toggle not-selected"></span>
             </div>
-        </div>
-        <div class="task-item__settings">
-            <img class="task-settings icon" src="/src/images/dots.png">
-        </div>
-    </li>`;
+            <div class="task-item__main">
+                <div class="task-title">${tasks[i].title}</div>
+                <div class="task-description">${tasks[i].description}</div>
+                <div class="task-date">
+                    <img class="task-date-icon icon" src="/src/images/calendar-2.png">
+                    <div class="task-date">${tasks[i].dueDate}</div>    
+                </div>
+            </div>
+            <div class="task-item__settings">
+                <img class="task-settings icon" src="/src/images/dots.png">
+            </div>
+            `
+            taskList.appendChild(li);
+        }
+    }
+
+    const clearTasks = () => {
+        const taksList = document.querySelector('.task-item-list');
+        taksList.innerHTML = '';
     }
 
     return {
@@ -345,7 +357,7 @@ export const changeDom = (() => {
         setTaskId,
         showTasksList,
         createTaskForm,
-        initialiseTaskAddButton
+        clearTasks
     }
 })();
 
