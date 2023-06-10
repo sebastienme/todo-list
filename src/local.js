@@ -1,4 +1,6 @@
-function storageAvailable(type) {
+import {projectsTable} from './projects.js';
+
+/* function storageAvailable(type) {
   let storage;
   try {
     storage = window[type];
@@ -23,11 +25,15 @@ function storageAvailable(type) {
       storage.length !== 0
     );
   }
-}
+} */
 
+//---Save the array of projects to localStorage
+export const localMethods = (() => {
 
-if (storageAvailable("localStorage")) {
-  console.log('Yippee! Tu peux utiliser localStorage')
-} else {
-  console.log('Too bad, no localStorage for us')
+  const saveToLocale = () => {
+    localStorage.setItem('data', JSON.stringify(projectsTable));
 }
+  return {
+    saveToLocale
+  }
+})();

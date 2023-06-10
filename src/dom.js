@@ -310,7 +310,7 @@ export const changeDom = (() => {
         newForm.appendChild(input3);
         newForm.appendChild(newInput);
 
-        taskMethods.validateTask();
+        taskMethods.validateTask(id);
     }
 
     const initialiseTaskAddButton = () => {

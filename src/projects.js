@@ -1,4 +1,5 @@
 import {changeDom} from './dom.js';
+import {localMethods} from './local'
 import _ from 'lodash';
 
 //---initialise array of Projects
@@ -26,7 +27,7 @@ export const validateProject = () => {
             changeDom.addProjectSection(oneProject);
             changeDom.setTaskId(inputResponse.toLowerCase());
             changeDom.showTasksList(inputResponse.toLowerCase());
-            saveToLocale();
+            localMethods.saveToLocale();
         } else {
             document.querySelector('.input-name').style.borderColor = '#b90000';
         }
@@ -37,12 +38,6 @@ export const validateProject = () => {
 const addProject = (item) => {
     projectsTable.push(item)
 }
-
-//---Save the array of projects to localStorage
-const saveToLocale = () => {
-    localStorage.setItem('data', JSON.stringify(projectsTable));
-}
-
 
 //---Get the project clicked by the user
 export const getProjectClicked = (id) => {
@@ -55,5 +50,5 @@ export const getProjectClicked = (id) => {
 export const deleteProject = (element) => {
     projectsTable = _.reject(projectsTable, function(el) { return el.nom.toLowerCase() === element.id });
     element.remove();
-    saveToLocale();
+    localMethods.saveToLocale();
 }
