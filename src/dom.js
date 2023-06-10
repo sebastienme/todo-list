@@ -1,8 +1,10 @@
 import {projectsTable, project, validateProject, getProjectClicked, deleteProject} from './projects.js';
-import { formatDistance, subDays } from 'date-fns'
+import {taskMethods} from './tasks'
+import { format } from 'date-fns'
 
 //---initiation functions for left panel items
 (() => {
+    
     const panelItem = document.querySelectorAll('.panel-item');
     
     panelItem.forEach(element => {
@@ -272,6 +274,7 @@ export const changeDom = (() => {
         newForm.setAttribute("id", "task-form");
     
         label.setAttribute("for", "name");
+        label.classList.add('task-title')
         label.innerHTML = "Nom de la tâche";
         label2.setAttribute("for", "description");
         label2.innerHTML = "Notes";
@@ -288,7 +291,7 @@ export const changeDom = (() => {
         input2.setAttribute("id", "description");
         input2.setAttribute("class", "input-description");
 
-        input3.setAttribute("type", "text");
+        input3.setAttribute("type", "date");
         input3.setAttribute("name", "date");
         input3.setAttribute("id", "datepicker");
         input3.setAttribute("class", "input-date");
@@ -306,13 +309,8 @@ export const changeDom = (() => {
         newForm.appendChild(label3);
         newForm.appendChild(input3);
         newForm.appendChild(newInput);
-        fireDatePicker();
-        function fireDatePicker() {
-            $( function() {
-                $( "#datepicker" ).datepicker();
-              } );
-        }
-        //validateTask();
+
+        taskMethods.validateTask();
     }
 
     const initialiseTaskAddButton = () => {
@@ -336,7 +334,6 @@ export const changeDom = (() => {
         </div>
     </li>`;
     }
-
 
     return {
         taskTitle,

@@ -30,7 +30,10 @@
   },
   "dependencies": {
     "date-fns": "^2.30.0",
-    "jquery": "^3.7.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "react": "^16.14.0",
+    "react-dates": "^21.8.0",
+    "react-dom": "^16.14.0"
   }
 }

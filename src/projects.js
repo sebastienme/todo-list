@@ -33,7 +33,7 @@ export const validateProject = () => {
     })
 }
 
-
+// Add a project to the Mes Projets section
 const addProject = (item) => {
     projectsTable.push(item)
 }
