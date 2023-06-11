@@ -1,6 +1,6 @@
 {
   "name": "todo-list",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Une application de type to-do list.",
   "main": "index.js",
   "scripts": {
