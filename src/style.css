@@ -144,6 +144,7 @@ nav {
 
 .modal.open {
     transform: scale(1);
+    z-index: 10;
 }
 
 .modal__box {
@@ -178,10 +179,6 @@ nav {
 #task-form > label {
     font-size: var(--h3-text);
     font-weight: 500;
-}
-
-.task-title {
-    margin-top: 15px;
 }
 
 .input-name {
@@ -333,7 +330,7 @@ input[type=submit] {
     position: relative;
 }
 
-.dots-menu {
+.dots-menu, .dots-menu-task {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -346,6 +343,9 @@ input[type=submit] {
     left: 30px;
     width: max-content;
 }
+.dots-menu-task {
+    padding: 0;
+}
 
 .dots-menu__item {
     display: flex;
@@ -354,12 +354,36 @@ input[type=submit] {
     gap: 5px;
 }
 
-.dots-menu__item > img {
+.dots-menu__item.task.edit {
+    border-bottom: 2px solid var(--text-color);
+    padding: 5px;
+}
+
+.dots-menu__item.task.delete {
+    padding: 5px;
+}
+
+.task-item__settings {
+    display: flex;
+    position: relative;
+}
+
+.dots-menu__item img {
     width: 20px;
 }
 
 .dots-menu:hover {
     background-color: #d8d8d8;
+    cursor: pointer;
+}
+
+.dots-menu__item.task:hover {
+    background-color: #d8d8d8;
+    cursor: pointer;
+}
+
+.task-settings.icon:hover {
+    cursor: pointer;
 }
 
 .main-content {
@@ -392,13 +416,19 @@ input[type=submit] {
     
 }
 
+.task-item-list {
+    display: flex;
+    flex-direction: column;
+    margin: 0 40px 0 40px;
+    gap: 15px;
+}
+
 .task-item {
     display: flex;
     gap: 20px;
     border: 2px solid var(--text-color);
     border-radius: 10px;
     padding: 10px;
-    margin: 0 40px 30px 40px;
     max-width: 600px;
 }
 
@@ -406,6 +436,7 @@ input[type=submit] {
     justify-content: center;
     border: none;
     background-color: #d4d4d4;
+    margin: 0 40px 30px 40px;
 }
 
 .task-item.add-task:hover {
@@ -451,12 +482,12 @@ input[type=submit] {
 
 .task-title {
     font-weight: 500;
-
 }
 
 .task-description {
     color: #727272;
     margin-bottom: 5px;
+    min-height: 25px;
 }
 
 .task-date {

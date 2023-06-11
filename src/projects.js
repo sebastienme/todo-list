@@ -48,5 +48,6 @@ export const getProjectClicked = (id) => {
 export const deleteProject = (element) => {
     projectsTable = _.reject(projectsTable, function(el) { return el.nom.toLowerCase() === element.id });
     element.remove();
+    changeDom.clearTasks();
     localMethods.saveToLocale();
 }

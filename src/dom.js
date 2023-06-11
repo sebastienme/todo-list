@@ -1,6 +1,6 @@
 import {projectsTable, project, validateProject, getProjectClicked, deleteProject} from './projects.js';
 import {taskMethods} from './tasks'
-import { format } from 'date-fns'
+import {dates} from './utilities'
 
 //---initiation functions for left panel items
 (() => {
@@ -213,25 +213,27 @@ export const changeDom = (() => {
     }
 
     const openProjectMenu = (wrapper) => {
-        const ul = document.createElement('ul');
-        ul.setAttribute('class', 'dots-menu');
-        ul.innerHTML = `
-        <li class="dots-menu__item">
-            <div class="dots-menu__item__text">Supprimer Projet</div>
-            <img class="dots-menu__item__img" src="/src/images/delete.png">
-        </li>
-        `
-        wrapper.appendChild(ul);
 
-        // function that remove the projectMenu popup
-        document.addEventListener('click', function(event) {
-            // Check if the clicked element is the div or a descendant of the div
-            const isClickedInsideDiv = wrapper.contains(event.target);
-            // If the clicked element is outside the div, remove the div
-            if (!isClickedInsideDiv) {
-            ul.remove();
-            }
-        });
+        if (wrapper.querySelector('.dots-menu') == null) {
+            const ul = document.createElement('ul');
+            ul.setAttribute('class', 'dots-menu');
+            ul.innerHTML = `
+            <li class="dots-menu__item">
+                <div class="dots-menu__item__text">Supprimer Projet</div>
+                <img class="dots-menu__item__img" src="/src/images/delete.png">
+            </li>
+            `;
+            wrapper.appendChild(ul);
+            // function that remove the projectMenu popup
+            document.addEventListener('click', function(event) {
+                // Check if the clicked element is the div or a descendant of the div
+                const isClickedInsideDiv = wrapper.contains(event.target);
+                // If the clicked element is outside the div, remove the div
+                if (!isClickedInsideDiv) {
+                ul.remove();
+                }
+            });
+        }
     }
 
     const setTaskId = (id) => {
@@ -320,6 +322,7 @@ export const changeDom = (() => {
         clearTasks();
 
         for (let i = 0; i < tasks.length; i++) {
+            const date = dates.getDates(tasks[i].dueDate)
             const li = document.createElement('li');
             li.setAttribute('class', 'task-item');
             li.innerHTML = `
@@ -331,20 +334,59 @@ export const changeDom = (() => {
                 <div class="task-description">${tasks[i].description}</div>
                 <div class="task-date">
                     <img class="task-date-icon icon" src="/src/images/calendar-2.png">
-                    <div class="task-date">${tasks[i].dueDate}</div>    
+                    <div class="task-date">${date}</div>    
                 </div>
             </div>
             <div class="task-item__settings">
-                <img class="task-settings icon" src="/src/images/dots.png">
+                <img id="${i}" class="task-settings icon" src="/src/images/dots.png">
             </div>
             `
             taskList.appendChild(li);
         }
+        const taskSetting = document.querySelectorAll('.task-settings.icon');
+        taskSetting.forEach(element => {
+            element.addEventListener('click', (e) => {
+                const clickedListItem = e.target.closest('.task-item__settings');
+                openTaskMenu(clickedListItem, e.target.id);
+            })
+        })
     }
 
     const clearTasks = () => {
         const taksList = document.querySelector('.task-item-list');
         taksList.innerHTML = '';
+    }
+
+    const openTaskMenu = (wrapper, taskId) => {
+        if (wrapper.querySelector('.dots-menu-task') == null) {
+            const ul = document.createElement('ul');
+            ul.setAttribute('class', 'dots-menu-task');
+            ul.innerHTML = `
+            <li class="dots-menu__item task edit">
+                <div class="dots-menu__item__text">Modifier</div>
+                <img class="dots-menu__item__img" src="/src/images/edit-2.png">
+            </li>
+            <li class="dots-menu__item task delete">
+                <div class="dots-menu__item__text">Supprimer</div>
+                <img class="dots-menu__item__img" src="/src/images/delete.png">
+            </li>
+            `
+            wrapper.appendChild(ul);
+    
+            // function that remove the projectMenu popup
+            document.addEventListener('click', function(event) {
+                // Check if the clicked element is the div or a descendant of the div
+                const isClickedInsideDiv = wrapper.contains(event.target);
+                // If the clicked element is outside the div, remove the div
+                if (!isClickedInsideDiv) {
+                ul.remove();
+                }
+                if (event.target.closest('.delete')) {
+                    const projectId = document.querySelector('.task-item.add-task').id;
+                    taskMethods.deleteTask(event.target.closest('.task-item'), projectId, taskId)
+                }
+            });
+        }
     }
 
     return {
