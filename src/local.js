@@ -1,4 +1,4 @@
-import {projectsTable} from './projects.js';
+import { projectsTable } from "./projects.js";
 
 /* function storageAvailable(type) {
   let storage;
@@ -29,11 +29,10 @@ import {projectsTable} from './projects.js';
 
 //---Save the array of projects to localStorage
 export const localMethods = (() => {
-
   const saveToLocale = () => {
-    localStorage.setItem('data', JSON.stringify(projectsTable));
-}
+    localStorage.setItem("data", JSON.stringify(projectsTable));
+  };
   return {
-    saveToLocale
-  }
+    saveToLocale,
+  };
 })();
