@@ -1,12 +1,12 @@
 {
-  "homepage": "https://github.com/sebastienme/todo-list#readme",
+  "homepage": "https://github.com/sebastienme/todo-list",
   "name": "todo-list",
   "version": "2.0.0",
   "description": "Une application de type to-do list.",
   "main": "index.js",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"
   },
