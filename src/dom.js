@@ -60,7 +60,7 @@ import {dates} from './utilities'
     const hamburger = document.querySelector('.navbar-col');
 
     hamburger.addEventListener('click', () => {
-        changeDom.toggleClassList('.nav-panel','collapsed')
+        changeDom.toggleClassList('.nav-panel','collapsed');
     })
 })();
 
@@ -110,6 +110,7 @@ export const changeDom = (() => {
 
     const toggleClassList = (selector, classe) => {
         const theSelector = document.querySelector(selector);
+        console.log(theSelector)
         theSelector.classList.toggle(classe);
     }
 
@@ -209,7 +210,9 @@ export const changeDom = (() => {
 
     const initialiseProjects = () => {
         projectsTable.forEach(item => addProjectSection(item));
-        showTasksList(projectsTable[0].nom.toLowerCase());
+        if (projectsTable.length > 0) {
+            showTasksList(projectsTable[0].nom.toLowerCase());
+        }
     }
 
     const openProjectMenu = (wrapper) => {
