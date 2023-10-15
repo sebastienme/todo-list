@@ -366,10 +366,6 @@ export const changeDom = (() => {
       const ul = document.createElement("ul");
       ul.setAttribute("class", "dots-menu-task");
       ul.innerHTML = `
-            <li class="dots-menu__item task edit">
-                <div class="dots-menu__item__text">Modifier</div>
-                <img class="dots-menu__item__img" src="/src/images/edit-2.png">
-            </li>
             <li class="dots-menu__item task delete">
                 <div class="dots-menu__item__text">Supprimer</div>
                 <img class="dots-menu__item__img" src="/src/images/delete.png">
@@ -392,8 +388,6 @@ export const changeDom = (() => {
             projectId,
             taskId
           );
-        } else if (event.target.closest(".edit")) {
-            console.log('edit')
         }
       });
     }
