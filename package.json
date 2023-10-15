@@ -1,5 +1,5 @@
 {
-  "homepage": "https://sebastienme.github.io/todo-list/",
+  "homepage": "https://github.com/sebastienme/todo-list#readme",
   "name": "todo-list",
   "version": "2.0.0",
   "description": "Une application de type to-do list.",
@@ -19,13 +19,13 @@
   "bugs": {
     "url": "https://github.com/sebastienme/todo-list/issues"
   },
-  "homepage": "https://github.com/sebastienme/todo-list#readme",
   "devDependencies": {
     "babel-core": "^4.7.16",
     "babel-loader": "^9.1.2",
     "babel-plugin-lodash": "^3.3.4",
     "babel-preset-env": "^1.7.0",
     "css-loader": "^6.7.3",
+    "html-webpack-plugin": "^5.5.3",
     "lodash-webpack-plugin": "^0.11.6",
     "style-loader": "^3.3.2",
     "webpack": "^5.84.1",
