@@ -1,4 +1,5 @@
-import { format } from 'date-fns'
+import { format } from 'date-fns';
+import { differenceInDays } from 'date-fns';
 
 export const dates = (() => {
     const translateDays = [{1: 'Lundi'}, { 2: 'Mardi'}, { 3: 'Mercredi'}, { 4: 'Jeudi'},
@@ -17,8 +18,13 @@ export const dates = (() => {
         return `${dayOfTheWeek}, ${dayOfTheMonth} ${monthOfTheYear}`;
     }
 
+    const getDaysDifference = (laterDate, todayDate) => {
+        return differenceInDays(laterDate, todayDate);
+    }
+
     return {
-        getDates
+        getDates,
+        getDaysDifference
     }
 })();
 

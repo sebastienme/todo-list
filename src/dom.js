@@ -21,20 +21,7 @@ import { dates } from "./utilities";
         element.style.borderLeftColor = "";
       });
 
-      if (classe.includes("sun")) {
-        element.style.backgroundColor = "#ffc42f85";
-        element.style.borderLeftColor = "#FFC52F";
-        changeDom.taskTitle("#FFC52F", "Aujourd'hui", "today");
-        taskMethods.showTasks(changeDom.getProjectId(), 0);
-      } else if (classe.includes("moon")) {
-        element.style.backgroundColor = "#592fff85";
-        element.style.borderLeftColor = "#592FFF";
-        changeDom.taskTitle("#592FFF", "7 jours", "week");
-      } else if (classe.includes("folder")) {
-        element.style.backgroundColor = "#00b90685";
-        element.style.borderLeftColor = "#00B906";
-        changeDom.taskTitle("#00B906", "Tous", "all");
-      }
+      changeDom.changeDateTaskPanel(element, classe)
     });
   });
 })();
@@ -116,6 +103,27 @@ export const changeDom = (() => {
     theSelector.classList.toggle(classe);
   };
 
+  const changeDateTaskPanel = (element, classe) => {
+    console.log(element)
+    console.log(classe)
+    if (classe.includes("sun")) {
+      element.style.backgroundColor = "#ffc42f85";
+      element.style.borderLeftColor = "#FFC52F";
+      changeDom.taskTitle("#FFC52F", "Aujourd'hui", "today");
+      changeDom.displayTask(changeDom.getProjectId(), 0);
+    } else if (classe.includes("moon")) {
+      element.style.backgroundColor = "#592fff85";
+      element.style.borderLeftColor = "#592FFF";
+      changeDom.taskTitle("#592FFF", "7 jours", "week");
+      changeDom.displayTask(changeDom.getProjectId(), 7);
+    } else if (classe.includes("folder")) {
+      element.style.backgroundColor = "#00b90685";
+      element.style.borderLeftColor = "#00B906";
+      changeDom.taskTitle("#00B906", "Tous", "all");
+      changeDom.displayTask(changeDom.getProjectId(), null);
+    }
+  }
+
   const createProjectForm = (id) => {
     const modal = document.querySelector(".modal__box");
     const img = document.createElement("img");
@@ -170,7 +178,7 @@ export const changeDom = (() => {
       const projectListItems = document.querySelectorAll(".panel-item.project");
       const clickedListItem = event.target.closest(".panel-item.project");
       let imageToChange = "";
-
+      console.log("click")
       //if user click on the three dots of a project in project list
       if (
         event.target.classList.contains("dots-menu") ||
@@ -188,7 +196,25 @@ export const changeDom = (() => {
             );
             imageToChange.src = "/src/images/folder-2.png";
             setTaskId(element.id);
-            displayTask(clickedListItem.id);
+            
+            const dateFilter = document.querySelector(".main-content__top__title");
+
+            if (dateFilter.id === "today") {
+              displayTask(clickedListItem.id, 0); 
+            } else if (dateFilter.id === "week") {
+              displayTask(clickedListItem.id, 7);
+            } else {
+              displayTask(clickedListItem.id, null);
+            }
+            
+
+
+
+
+
+
+
+
           } else {
             imageToChange = element.querySelector(".panel-item__icon.main");
             imageToChange.src = "/src/images/folder-close.png";
@@ -212,15 +238,12 @@ export const changeDom = (() => {
     item.appendChild(img);
     item.appendChild(div);
     item.appendChild(wrapperDiv);
-    projectSection.insertBefore(
-      item,
-      document.querySelector(".panel-item.add-project")
-    );
+    projectSection.insertBefore(item, document.querySelector(".panel-item.add-project"));
   };
 
   const initialiseProjects = () => {
     projectsTable.forEach((item) => addProjectSection(item));
-    showTasksList(projectsTable[0].nom.toLowerCase());
+    showTasksList(projectsTable[0].nom.toLowerCase(), 0);
   };
 
   const openProjectMenu = (wrapper) => {
@@ -250,14 +273,14 @@ export const changeDom = (() => {
     document.querySelector(".task-item.add-task").setAttribute("id", id);
   };
 
-  const showTasksList = (id) => {
+  const showTasksList = (id, dateFilter) => {
     //first clear the open folder project
     const projectListItems = document.querySelectorAll(".panel-item.project");
     let imageToChange = "";
     projectListItems.forEach((element) => {
       if (id == element.id) {
         setTaskId(element.id);
-        displayTask(element.id);
+        displayTask(element.id, dateFilter);
       } else {
         imageToChange = element.querySelector(".panel-item__icon.main");
         imageToChange.src = "/src/images/folder-close.png";
@@ -324,16 +347,9 @@ export const changeDom = (() => {
     taskMethods.validateTask(id);
   };
 
-  const displayTask = (id) => {
-    const project = getProjectClicked(id);
-    const tasks = project.tasksTable;
-    
-    
-    
-    //task est un copie d<instance donc peut prendre task pour afficher les info
-
-
-
+  const displayTask = (id, dateFilter) => {
+    //const project = getProjectClicked(id);
+    let tasks = taskMethods.getTasks(id, dateFilter)
 
     const taskList = document.querySelector(".task-item-list");
 
@@ -410,8 +426,10 @@ export const changeDom = (() => {
   return {
     taskTitle,
     getProjectId,
+    changeDateTaskPanel,
     toggleClassList,
     createProjectForm,
+    displayTask,
     hideModal,
     addProjectSection,
     initialiseProjects,

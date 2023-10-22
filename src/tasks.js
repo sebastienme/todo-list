@@ -1,6 +1,7 @@
 import { changeDom } from "./dom.js";
 import { projectsTable } from "./projects.js";
 import { localMethods } from "./local";
+import { dates } from "./utilities";
 import _ from "lodash";
 
 const Task = (title, description, dueDate, taskId) => {
@@ -49,15 +50,11 @@ export const taskMethods = (() => {
 
   //Deletes a task when user click on delete button
   const deleteTask = (element, projectId, taskId) => {
-    console.log(taskId);
     projectsTable.forEach((item) => {
       if (item.nom.toLowerCase() === projectId) {
-        console.log(projectsTable);
-        console.log(item.tasksTable);
         item.tasksTable = _.reject(item.tasksTable, function (el) {
           return el.taskId === taskId;
         });
-        console.log(item.tasksTable);
       }
     });
     element.remove();
@@ -65,13 +62,26 @@ export const taskMethods = (() => {
   };
 
   //display tasks on the main page as per the due dates
-  const showTasks = (projectId, dateFilter) => {
+  const getTasks = (projectId, dateFilter) => {
+    const actualDate = new Date();
+    let table = [];
     
+    if (dateFilter === 0) {
+      table = projectsTable.find(element => element.nom.toLowerCase() == projectId).tasksTable
+      .filter(element => (dates.getDaysDifference(new Date(element.dueDate), actualDate) === dateFilter));
+    } else if (dateFilter === 7) {
+      table = projectsTable.find(element => element.nom.toLowerCase() == projectId).tasksTable
+      .filter(element => (dates.getDaysDifference(new Date(element.dueDate), actualDate) <= dateFilter));
+    } else {
+      table = projectsTable.find(element => element.nom.toLowerCase() == projectId).tasksTable;
+    }
+    
+    return table;
   };
 
   return {
     validateTask,
     deleteTask,
-    showTasks,
+    getTasks,
   };
 })();
