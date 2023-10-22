@@ -3,8 +3,8 @@ import { projectsTable } from "./projects.js";
 import { localMethods } from "./local";
 import _ from "lodash";
 
-const Task = (title, description, dueDate) => {
-  return { title, description, dueDate };
+const Task = (title, description, dueDate, taskId) => {
+  return { title, description, dueDate, taskId };
 };
 
 export const taskMethods = (() => {
@@ -19,7 +19,8 @@ export const taskMethods = (() => {
       e.preventDefault();
 
       if (inputName != "" && inputDate != "") {
-        const oneTask = Task(inputName, inputDescription, inputDate);
+        const taskId = "id" + Math.random().toString(16).slice(2);
+        const oneTask = Task(inputName, inputDescription, inputDate, taskId);
         addTask(oneTask, id);
         changeDom.hideModal();
         // changeDom.addProjectSection(oneProject);
@@ -44,23 +45,33 @@ export const taskMethods = (() => {
         ? element.tasksTable.push(task)
         : null
     );
-    console.log(projectsTable);
   };
 
   //Deletes a task when user click on delete button
   const deleteTask = (element, projectId, taskId) => {
-    projectsTable.forEach((element) => {
-      if (element.nom.toLowerCase() === projectId) {
-        //besoin de trouver une facon de mettre un id sur les tasks
-        //const index = element.tasksTable.indexOf(taskId, 1);
+    console.log(taskId);
+    projectsTable.forEach((item) => {
+      if (item.nom.toLowerCase() === projectId) {
+        console.log(projectsTable);
+        console.log(item.tasksTable);
+        item.tasksTable = _.reject(item.tasksTable, function (el) {
+          return el.taskId === taskId;
+        });
+        console.log(item.tasksTable);
       }
     });
     element.remove();
     localMethods.saveToLocale();
   };
 
+  //display tasks on the main page as per the due dates
+  const showTasks = (projectId, dateFilter) => {
+    
+  };
+
   return {
     validateTask,
-    deleteTask
+    deleteTask,
+    showTasks,
   };
 })();

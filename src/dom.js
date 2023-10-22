@@ -24,15 +24,16 @@ import { dates } from "./utilities";
       if (classe.includes("sun")) {
         element.style.backgroundColor = "#ffc42f85";
         element.style.borderLeftColor = "#FFC52F";
-        changeDom.taskTitle("#FFC52F", "Aujourd'hui");
+        changeDom.taskTitle("#FFC52F", "Aujourd'hui", "today");
+        taskMethods.showTasks(changeDom.getProjectId(), 0);
       } else if (classe.includes("moon")) {
         element.style.backgroundColor = "#592fff85";
         element.style.borderLeftColor = "#592FFF";
-        changeDom.taskTitle("#592FFF", "7 jours");
+        changeDom.taskTitle("#592FFF", "7 jours", "week");
       } else if (classe.includes("folder")) {
         element.style.backgroundColor = "#00b90685";
         element.style.borderLeftColor = "#00B906";
-        changeDom.taskTitle("#00B906", "Tous");
+        changeDom.taskTitle("#00B906", "Tous", "all");
       }
     });
   });
@@ -99,11 +100,16 @@ import { dates } from "./utilities";
 
 //---module patern function that change the dom
 export const changeDom = (() => {
-  const taskTitle = (color, text) => {
+  const taskTitle = (color, text, id) => {
     const topTitle = document.querySelector(".main-content__top__title");
     topTitle.style.backgroundColor = color;
     topTitle.innerHTML = text;
+    topTitle.setAttribute("id", id);
   };
+
+  const getProjectId = () => {
+    return document.querySelector(".task-item.add-task").id;
+  }
 
   const toggleClassList = (selector, classe) => {
     const theSelector = document.querySelector(selector);
@@ -321,6 +327,14 @@ export const changeDom = (() => {
   const displayTask = (id) => {
     const project = getProjectClicked(id);
     const tasks = project.tasksTable;
+    
+    
+    
+    //task est un copie d<instance donc peut prendre task pour afficher les info
+
+
+
+
     const taskList = document.querySelector(".task-item-list");
 
     clearTasks();
@@ -342,7 +356,7 @@ export const changeDom = (() => {
                 </div>
             </div>
             <div class="task-item__settings">
-                <img id="${i}" class="task-settings icon" src="/src/images/dots.png">
+                <img id="${tasks[i].taskId}" class="task-settings icon" src="/src/images/dots.png">
             </div>
             `;
       taskList.appendChild(li);
@@ -395,6 +409,7 @@ export const changeDom = (() => {
 
   return {
     taskTitle,
+    getProjectId,
     toggleClassList,
     createProjectForm,
     hideModal,
