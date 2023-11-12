@@ -1,5 +1,4 @@
 {
-  "homepage": "https://sebastienme.github.io/todo-list/",
   "name": "todo-list",
   "version": "2.0.0",
   "description": "Une application de type to-do list.",
@@ -19,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/sebastienme/todo-list/issues"
   },
-  "homepage": "https://github.com/sebastienme/todo-list#readme",
+  "homepage": "https://github.com/sebastienme/todo-list",
   "devDependencies": {
     "babel-core": "^4.7.16",
     "babel-loader": "^9.1.2",
