@@ -64,26 +64,6 @@ import { dates } from "./utilities";
   });
 })();
 
-//---(a changer quand il va y en avoir plusieurs) initiation of toggle check task
-/* (() => {
-    const toggleMark = document.querySelector('.task-toggle');
-    const image = document.createElement('img');
-
-    toggleMark.addEventListener('click', () => {
-        
-        if (toggleMark.getAttribute('class').includes('not-selected')) {
-            toggleMark.style.backgroundColor = 'var(--secondary-color)';
-            image.setAttribute('src', '/src/images/check-mark.png');
-            image.setAttribute('class', 'check-selected');
-            toggleMark.appendChild(image);
-
-        } else {
-            toggleMark.innerHTML = '';
-            toggleMark.style.backgroundColor = '';
-        }
-        toggleMark.classList.toggle("not-selected");
-    })
-})(); */
 
 //---module patern function that change the dom
 export const changeDom = (() => {
@@ -206,14 +186,6 @@ export const changeDom = (() => {
             } else {
               displayTask(clickedListItem.id, null);
             }
-            
-
-
-
-
-
-
-
 
           } else {
             imageToChange = element.querySelector(".panel-item__icon.main");
